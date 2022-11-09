@@ -82,6 +82,7 @@ for i in range(len(url_data)):
         features = np.nan 
     
     # Frequently bought together
+    # okay
                             
     
 
