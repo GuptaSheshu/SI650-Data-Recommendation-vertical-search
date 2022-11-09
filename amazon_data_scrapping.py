@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import numpy as np
+import re
 
 output_file = open("amazon_data.csv","a")
 url_data = pd.read_csv("amazon_eye_liner.csv")
@@ -53,6 +54,35 @@ for i in range(len(url_data)):
                 break
     except:
         brand = np.nan
+        
+    # Ingredients
+    try:
+        flag=0
+        lis = soup.find_all("div", attrs={"class" : "a-section content"})
+        for idx, val in enumerate(lis):
+            st_list = val.find_all(re.compile("h"))
+            for idx2, val2 in enumerate(st_list):
+                if(val2.string=="Ingredients"):
+                    ingredients = lis[idx].text
+                    flag=1
+                    break
+            if(flag):
+                break
+    except:
+        ingredients = np.nan
+
+    
+    # About this item
+    try:
+        lis = soup.find("div", attrs={"id":"feature-bullets"}).find_all("li")
+        features = []
+        for val in lis:
+            features.append(val.string)
+    except:
+        features = np.nan 
+    
+    # Frequently bought together
+                            
     
 
     
