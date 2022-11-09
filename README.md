@@ -1,4 +1,4 @@
 # Vertical Search and Recommendation System
 
 ### Requirement 
-pip install -r requirements.txt
+pip install -r requirement.txt
