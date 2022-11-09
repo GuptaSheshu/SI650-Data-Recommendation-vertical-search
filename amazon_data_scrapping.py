@@ -82,7 +82,29 @@ for i in range(len(url_data)):
         features = np.nan 
     
     # Frequently bought together
-                            
+    try:
+        fbt = soup.find("div", attrs={"class": "cardRoot bucket"}).find_all("a", href=True)
+        fbt_links = []
+        for val in fbt:
+            fbt_links.append('https://www.amazon.com/'+val['href'])
+    except:
+        fbt_links = np.nan
+        
+    # Product related to this item
+    try:
+        prt = soup.find("div", {"id":"sims-consolidated-2_feature_div"}).find_all("a", href=True)
+        dic = {}
+        for idx, val in enumerate(prt):
+            try:
+                temp = val['title']
+                dic[temp] = 1
+            except:
+                temp=1
+        
+        prt_list_title = list(dic.keys())
+    except:
+        prt_list_title = np.nan
+                                
     
 
     
