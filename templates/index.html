@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- All of the meta data for the page belongs in the header tag -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<!-- <link rel="icon" href="./favicon.ico"> -->
+	<link rel="stylesheet" href="static/css/html5reset.css">
+	<link rel="stylesheet" href="static/css/style.css">
+	<title> Cosmetic Vertical Search and Recommendation System </title>
+</head>
+<body>
+	<header>
+		<!-- <a class="skip-to-content-link" href="#main"> Skip to content </a> -->
+        <h1>Cosmetic Vertical Search and Recommendation System</h1>
+		<nav>
+			<ul>
+				<li class="active"><a href="/">Home</a></li>
+			</ul>
+		</nav>
+	</header>
+    <main>
+        <h2> Which product are you looking for ? </h1> 
+        <form action="/display_posts" method="POST">
+            {% comment %} <label for="Location">Select a Location:</label>
+            <select id="loc" name="loc"> 
+            {% for state in state_list: %}
+            {%if(state != 'Outside USA'):%}
+                <option value={{state}}> {{state}} </option>
+            {%else:%}
+                <option value='outside_usa'> Outside USA </option>
+            {%endif%}
+            {% endfor %}
+            
+            </select>
+            <br>
+            <label for="position_type">Position type</label>
+            <select id="position_type" name="position_type"> 
+            {% for fi in fi_list: %}
+                <option value={{fi}}> {{fi}} </option>
+            {% endfor %}
+            </select>
+            <br>
+            <label for="company_name">Company Name</label>
+            <select id="company_name" name="company_name">             
+            {% for cmp in cmp_list: %}
+                <option value={{cmp}}> {{cmp}} </option>
+            {% endfor %}
+            </select>
+            <br> {% endcomment %}
+            <label for="fname">Enter your Query</label><br>
+            <input type="text" id="fname" name="fname">
+            <br>
+            <input type="submit" value="Submit" />
+        </form>
+        <p>
+            {% if result_list is not none: %}
+                <ol>
+                    <div class="tweet_post_list">
+                    {% for obj in result_list: %}
+                        <li> 
+                            <ul>
+                                <br>
+                                <li> <strong> Job Title : </strong>{{obj.job_title}}</li>
+                                <li> <strong> Company Name : </strong> {{obj.company_name}} </li>
+                                <li> <strong> Location: </strong> {{obj.location}} </li>
+                                <li> <strong> Url: </strong><a href={{obj.job_url}} target="_blank"> Job URL </a> </li>
+                                <br>     
+                            </ul>
+                        </li>
+                    {% endfor %}
+                    </div>
+                </ol>
+            {% endif %}
+        </p>
+    </main>
+</body>
+
